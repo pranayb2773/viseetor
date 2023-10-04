@@ -1,0 +1,81 @@
+/* Default colors */
+:root {
+    --color-primary-50: theme("colors.rgb.sky.50");
+    --color-primary-100: theme("colors.rgb.sky.100");
+    --color-primary-200: theme("colors.rgb.sky.200");
+    --color-primary-300: theme("colors.rgb.sky.300");
+    --color-primary-400: theme("colors.rgb.sky.400");
+    --color-primary-500: theme("colors.rgb.sky.500");
+    --color-primary-600: theme("colors.rgb.sky.600");
+    --color-primary-700: theme("colors.rgb.sky.700");
+    --color-primary-800: theme("colors.rgb.sky.800");
+    --color-primary-900: theme("colors.rgb.sky.900");
+
+    --color-secondary-50: theme("colors.rgb.gray.50");
+    --color-secondary-100: theme("colors.rgb.gray.100");
+    --color-secondary-200: theme("colors.rgb.gray.200");
+    --color-secondary-300: theme("colors.rgb.gray.300");
+    --color-secondary-400: theme("colors.rgb.gray.400");
+    --color-secondary-500: theme("colors.rgb.gray.500");
+    --color-secondary-600: theme("colors.rgb.gray.600");
+    --color-secondary-700: theme("colors.rgb.gray.700");
+    --color-secondary-800: theme("colors.rgb.gray.800");
+    --color-secondary-900: theme("colors.rgb.gray.900");
+
+    --color-success-50: theme("colors.rgb.green.50");
+    --color-success-100: theme("colors.rgb.green.100");
+    --color-success-200: theme("colors.rgb.green.200");
+    --color-success-300: theme("colors.rgb.green.300");
+    --color-success-400: theme("colors.rgb.green.400");
+    --color-success-500: theme("colors.rgb.green.500");
+    --color-success-600: theme("colors.rgb.green.600");
+    --color-success-700: theme("colors.rgb.green.700");
+    --color-success-800: theme("colors.rgb.green.800");
+    --color-success-900: theme("colors.rgb.green.900");
+
+    --color-info-50: theme("colors.rgb.cyan.50");
+    --color-info-100: theme("colors.rgb.cyan.100");
+    --color-info-200: theme("colors.rgb.cyan.200");
+    --color-info-300: theme("colors.rgb.cyan.300");
+    --color-info-400: theme("colors.rgb.cyan.400");
+    --color-info-500: theme("colors.rgb.cyan.500");
+    --color-info-600: theme("colors.rgb.cyan.600");
+    --color-info-700: theme("colors.rgb.cyan.700");
+    --color-info-800: theme("colors.rgb.cyan.800");
+    --color-info-900: theme("colors.rgb.cyan.900");
+
+    --color-pending-50: theme("colors.rgb.amber.50");
+    --color-pending-100: theme("colors.rgb.amber.100");
+    --color-pending-200: theme("colors.rgb.amber.200");
+    --color-pending-300: theme("colors.rgb.amber.300");
+    --color-pending-400: theme("colors.rgb.amber.400");
+    --color-pending-500: theme("colors.rgb.amber.500");
+    --color-pending-600: theme("colors.rgb.amber.600");
+    --color-pending-700: theme("colors.rgb.amber.700");
+    --color-pending-800: theme("colors.rgb.amber.800");
+    --color-pending-900: theme("colors.rgb.amber.900");
+
+    --color-warning-50: theme("colors.rgb.yellow.50");
+    --color-warning-100: theme("colors.rgb.yellow.100");
+    --color-warning-200: theme("colors.rgb.yellow.200");
+    --color-warning-300: theme("colors.rgb.yellow.300");
+    --color-warning-400: theme("colors.rgb.yellow.400");
+    --color-warning-500: theme("colors.rgb.yellow.500");
+    --color-warning-600: theme("colors.rgb.yellow.600");
+    --color-warning-700: theme("colors.rgb.yellow.700");
+    --color-warning-800: theme("colors.rgb.yellow.800");
+    --color-warning-900: theme("colors.rgb.yellow.900");
+
+    --color-danger-50: theme("colors.rgb.rose.50");
+    --color-danger-100: theme("colors.rgb.rose.100");
+    --color-danger-200: theme("colors.rgb.rose.200");
+    --color-danger-300: theme("colors.rgb.rose.300");
+    --color-danger-400: theme("colors.rgb.rose.400");
+    --color-danger-500: theme("colors.rgb.rose.500");
+    --color-danger-600: theme("colors.rgb.rose.600");
+    --color-danger-700: theme("colors.rgb.rose.700");
+    --color-danger-800: theme("colors.rgb.rose.800");
+    --color-danger-900: theme("colors.rgb.rose.900");
+}
+
+

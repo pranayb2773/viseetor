@@ -7,10 +7,16 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use App\Enums\User\Type;
+use App\Enums\User\Status;
 
-new #[Layout('layouts.guest')] class extends Component
+new #[Layout('layouts.guest', [
+    'title' => 'Register',
+    'header' => 'Create your account'
+])] class extends Component
 {
-    public string $name = '';
+    public string $first_name = '';
+    public string $last_name = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
@@ -18,14 +24,22 @@ new #[Layout('layouts.guest')] class extends Component
     public function register(): void
     {
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
+        $user = User::create([
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
+            'email' => $validated['email'],
+            'password' => $validated['password'],
+            'type' => Type::EXTERNAL,
+            'status' => Status::ACTIVE,
+        ]);
 
-        event(new Registered($user = User::create($validated)));
+        event(new Registered($user));
 
         auth()->login($user);
 
@@ -35,41 +49,64 @@ new #[Layout('layouts.guest')] class extends Component
 
 <div>
     <form wire:submit="register">
-        <!-- Name -->
+        <!-- First Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-label.main for="first_name" :value="__('First Name')" />
+            <x-input.text
+                wire:model="first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name"
+                required autofocus autocomplete="first_name"
+                field="first_name"
+            />
+            <x-input.error field="first_name" class="mt-2" />
+        </div>
+
+        <!-- Last Name -->
+        <div>
+            <x-label.main for="last_name" :value="__('Last Name')" />
+            <x-input.text
+                wire:model="last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name"
+                required autofocus autocomplete="last_name"
+                field="last_name"
+            />
+            <x-input.error field="last_name" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-label.main for="email" :value="__('Email')" />
+            <x-input.text
+                wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email"
+                required autocomplete="username"
+                field="email"
+            />
+            <x-input.error field="email" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-label.main for="password" :value="__('Password')" />
 
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <x-input.text
+                wire:model="password" id="password" class="block mt-1 w-full" type="password" name="password"
+                required autocomplete="new-password"
+                field="password"
+            />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input.error field="password" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-label.main for="password_confirmation" :value="__('Confirm Password')" />
 
-            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            <x-input.text
+                wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
+                type="password" name="password_confirmation"
+                required autocomplete="new-password"
+                field="password_confirmation"
+            />
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <x-input.error field="password_confirmation" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
@@ -77,9 +114,9 @@ new #[Layout('layouts.guest')] class extends Component
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ml-4">
+            <x-button.primary class="ml-4">
                 {{ __('Register') }}
-            </x-primary-button>
+            </x-button.primary>
         </div>
     </form>
 </div>

@@ -9,7 +9,10 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.guest')] class extends Component
+new #[Layout('layouts.guest', [
+    'title' => 'Login',
+    'header' => 'Sign into your account'
+])] class extends Component
 {
     #[Rule(['required', 'string', 'email'])]
     public string $email = '';
@@ -75,21 +78,26 @@ new #[Layout('layouts.guest')] class extends Component
     <form wire:submit="login">
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-label.main for="email" :value="__('Email')" />
+            <x-input.text
+                wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email"
+                required autofocus autocomplete="username"
+                field="email"
+            />
+            <x-input.error field="email" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-label.main for="password" :value="__('Password')" />
 
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            <x-input.text
+                wire:model="password" id="password" class="block mt-1 w-full"
+                type="password" name="password" required autocomplete="current-password"
+                field="password"
+            />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input.error field="password" class="mt-2" />
         </div>
 
         <!-- Remember Me -->
@@ -107,9 +115,9 @@ new #[Layout('layouts.guest')] class extends Component
                 </a>
             @endif
 
-            <x-primary-button class="ml-3">
+            <x-button.primary class="ml-3">
                 {{ __('Log in') }}
-            </x-primary-button>
+            </x-button.primary>
         </div>
     </form>
 </div>
