@@ -44,7 +44,7 @@ new class extends Component
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                     {{ __('Are you sure you want to delete your account?') }}
                 </h2>
-                <button type="button" x-on:click="$dispatch('close')" class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-50">
+                <button type="button" x-on:click="$dispatch('close')" class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 dark:focus:ring-offset-secondary-800 transition ease-in-out duration-150">
                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </div>
@@ -70,9 +70,9 @@ new class extends Component
             </div>
 
             <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
+                <x-button.secondary x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
-                </x-secondary-button>
+                </x-button.secondary>
 
                 <x-danger-button class="ml-3">
                     {{ __('Delete Account') }}

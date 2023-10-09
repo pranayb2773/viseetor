@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\Dashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +23,11 @@ Route::view('dashboard', 'dashboard')
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('/', Dashboard::class)->name('dashboard');
+    Route::get('/users', Dashboard::class)->name('users');
+    Route::view('profile', 'profile')->name('auth.profile');
+});
 
 require __DIR__.'/auth.php';

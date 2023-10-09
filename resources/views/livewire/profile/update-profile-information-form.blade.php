@@ -37,7 +37,11 @@ new class extends Component
 
         $user->save();
 
-        $this->dispatch('profile-updated', name: $user->first_name);
+        $this->dispatch('profile-updated', profile: [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'email' => $this->email,
+        ]);
     }
 
     public function sendVerification(): void
