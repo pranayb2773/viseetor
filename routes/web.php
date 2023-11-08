@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Livewire\Admin\User;
+
+use App\Livewire\Admin\User\Index;
 use App\Livewire\Admin\Dashboard;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +28,7 @@ Route::view('profile', 'profile')
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', Dashboard::class)->name('dashboard');
-    Route::get('/users', User\Index::class)->name('users');
+    Route::get('/users', Index::class)->name('users');
     Route::view('profile', 'profile')->name('auth.profile');
 });
 

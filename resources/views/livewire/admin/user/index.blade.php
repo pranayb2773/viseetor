@@ -60,6 +60,102 @@
                             </div>
                         </div>
                     @else
+                        <x-table.main>
+                            <!-- Table Headings -->
+                            <x-slot name="head">
+                                <x-table.heading class="w-8 pr-0">
+                                    <x-input.checkbox wire:model="selectPage"></x-input.checkbox>
+                                </x-table.heading>
+
+                                <x-table.heading sortable wire:click="sortBy('first_name')"
+                                    :direction="$sortColumn === 'first_name' ? $sortDirection : ''" class="w-full">Name</x-table.heading>
+
+                                <x-table.heading>Roles</x-table.heading>
+
+                                <x-table.heading sortable wire:click="sortBy('status')"
+                                    :direction="$sortColumn === 'status' ? $sortDirection : ''">Status</x-table.heading>
+
+                                <x-table.heading sortable wire:click="sortBy('type')"
+                                    :direction="$sortColumn === 'user_type' ? $sortDirection : ''">Type</x-table.heading>
+
+                                <x-table.heading sortable wire:click="sortBy('updated_at')"
+                                    :direction="$sortColumn === 'updated_at' ? $sortDirection : ''">Modified At</x-table.heading>
+
+                                <x-table.heading>Action</x-table.heading>
+                            </x-slot>
+
+                            <!-- Table Body -->
+                            <x-slot:body>
+                                @foreach ($users as $user)
+                                    <x-table.row wire:key="row-{{ $user->id }}" class="text-base">
+                                        <x-table.cell class="pr-0">
+                                            <x-input.checkbox wire:model="selected"
+                                                value="{{ $user->id }}"></x-input.checkbox>
+                                        </x-table.cell>
+
+                                        <x-table.cell>
+                                            <dl>
+                                                <dt class="sr-only">Display Name</dt>
+                                                <dd class="font-medium text-gray-900 dark:text-gray-200">
+                                                    {{ $user->first_name . ' ' . $user->last_name }}
+                                                </dd>
+                                                <dt class="sr-only">Email</dt>
+                                                <dd class="text-gray-500 dark:text-gray-400">
+                                                    {{ $user->email }}
+                                                </dd>
+                                            </dl>
+                                        </x-table.cell>
+
+                                        <x-table.cell>
+                                            <div>
+                                                <ul class="list-disc space-y-2">
+                                                    @forelse($user->roles as $role)
+                                                        <li class="px-2 text-sm font-medium">
+                                                            {{ $role->name }}
+                                                        </li>
+                                                    @empty
+                                                        <li>None</li>
+                                                    @endforelse
+                                                </ul>
+                                            </div>
+                                        </x-table.cell>
+
+                                        <x-table.cell>
+                                            <span
+                                                class="{{ $user->status->color() }} inline-flex rounded-full px-2 text-xs font-medium leading-5">
+                                                {{ $user->status->label() }}
+                                            </span>
+                                        </x-table.cell>
+
+                                        <x-table.cell>{{ $user->type->label() }}</x-table.cell>
+
+                                        <x-table.cell>
+                                            <dl>
+                                                <dt class="sr-only">Updated At</dt>
+                                                <dd class="font-medium text-gray-700 dark:text-gray-200">
+                                                    {{ $user->updated_at->format('F j, Y g:i a') }}
+                                                </dd>
+                                                <dt class="sr-only">Human readable</dt>
+                                                <dd class="text-gray-500 dark:text-gray-400">
+                                                    {{ $user->updated_at->diffForHumans() }}
+                                                </dd>
+                                            </dl>
+                                        </x-table.cell>
+
+                                        <x-table.cell>
+                                            <div class="flex items-center space-x-2">
+                                                <x-icon.eye
+                                                    wire:click="$emit('openModal', 'admin.user.view', {{ json_encode(['user' => $user->id], JSON_THROW_ON_ERROR) }})"
+                                                    class="cursor-pointer text-gray-400 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300" />
+                                                <x-icon.pencil
+                                                    wire:click="$emit('openModal', 'admin.user.edit', {{ json_encode(['user' => $user->id], JSON_THROW_ON_ERROR) }})"
+                                                    class="cursor-pointer text-primary-600 hover:text-primary-500" />
+                                            </div>
+                                        </x-table.cell>
+                                    </x-table.row>
+                                @endforeach
+                            </x-slot:body>
+                        </x-table.main>
                     @endif
                 </div>
             </div>

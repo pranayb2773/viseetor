@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Admin\User;
+namespace App\Livewire\Admin\User;
 
 use App\Models\User;
+use App\Traits\WithSorting;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,17 +19,20 @@ use Livewire\Component;
  */
 class Index extends Component
 {
+    use WithSorting;
+
     public string $search = '';
     public string $updated_at = '';
 
     #[Computed]
     public function users(): LengthAwarePaginator
     {
-        return User::with(['roles'])
+        return User::with(['roles' => function ($query) {
+            $query->orderByDesc('name');
+        }])
             ->when($this->search, fn(Builder $query, $search) => $query->whereLike(['first_name', 'last_name'], $search))
             ->when($this->updated_at, fn(Builder $query, $updated_at) => $query->whereLike('updated_at', Carbon::parse($updated_at)->format('Y-m-d')))
-            ->whereNull('first_name')
-            ->orderByDesc('updated_at')
+            //->when($this->sortColumn, fn(Builder $query, $sortColumn) => $query->orderBy($sortColumn, $this->sortDirection), fn(Builder $query) => $query->orderByDesc('updated_at'))
             ->paginate();
     }
     public function render(): Application|Factory|View
