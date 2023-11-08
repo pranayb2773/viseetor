@@ -1,12 +1,13 @@
 <!doctype html>
-<html
-    lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-    x-data="{
-      darkMode: localStorage.getItem('darkMode')
-      || localStorage.setItem('darkMode', 'system')}"
-    x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
-    x-bind:class="{'dark': darkMode === 'dark' || (darkMode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)}"
->
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{
+    darkMode: localStorage.getItem('darkMode') ||
+        localStorage.setItem('darkMode', 'system')
+}" x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
+    x-bind:class="{
+        'dark': darkMode === 'dark' || (darkMode === 'system' && window.matchMedia('(prefers-color-scheme: dark)')
+            .matches)
+    }">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,16 +22,21 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
+
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div class="w-full sm:max-w-md text-center">
+        <div
+            class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 dark:bg-gray-900 sm:justify-center sm:pt-0">
+            <div class="w-full text-center sm:max-w-md">
                 <x-logo.application-logo></x-logo.application-logo>
-                <h2 class="mt-4 text-2xl font-bold leading-9 tracking-tight text-secondary-900 dark:text-secondary-300">{{ $header }}</h2>
+                <h2 class="mt-4 text-2xl font-bold leading-9 tracking-tight text-secondary-900 dark:text-secondary-300">
+                    {{ $header }}</h2>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            <div
+                class="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md dark:bg-gray-800 sm:max-w-md sm:rounded-lg">
                 {{ $slot }}
             </div>
         </div>
     </body>
+
 </html>

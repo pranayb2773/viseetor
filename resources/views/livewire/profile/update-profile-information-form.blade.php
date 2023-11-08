@@ -6,8 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
 
-new class extends Component
-{
+new class extends Component {
     public string $first_name = '';
     public string $last_name = '';
     public string $email = '';
@@ -37,11 +36,14 @@ new class extends Component
 
         $user->save();
 
-        $this->dispatch('profile-updated', profile: [
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'email' => $this->email,
-        ]);
+        $this->dispatch(
+            'profile-updated',
+            profile: [
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'email' => $this->email,
+            ],
+        );
     }
 
     public function sendVerification(): void
@@ -76,46 +78,38 @@ new class extends Component
     <form wire:submit="updateProfileInformation" class="mt-6 space-y-6">
         <div>
             <x-label.main for="first_name" :value="__('First Name')" />
-            <x-input.text
-                wire:model="first_name"
-                id="first_name" name="first_name" type="text" class="mt-1 block w-full"
-                required autofocus autocomplete="first_name"
-                field="first_name"
-            />
+            <x-input.text wire:model="first_name" id="first_name" name="first_name" type="text" class="mt-1 block w-full"
+                required autofocus autocomplete="first_name" field="first_name" />
             <x-input.error class="mt-2" field="first_name" />
         </div>
 
         <div>
             <x-label.main for="last_name" :value="__('Last Name')" />
-            <x-input.text
-                wire:model="last_name" id="last_name" name="last_name" type="text" class="mt-1 block w-full"
-                required autofocus autocomplete="last_name"
-                field="last_name"
-            />
+            <x-input.text wire:model="last_name" id="last_name" name="last_name" type="text"
+                class="mt-1 block w-full" required autofocus autocomplete="last_name" field="last_name" />
             <x-input.error class="mt-2" field="last_name" />
         </div>
 
         <div>
             <x-label.main for="email" :value="__('Email')" />
-            <x-input.text
-                wire:model="email" id="email" name="email" type="email" class="mt-1 block w-full"
-                required autocomplete="email"
-                field="email"
-            />
+            <x-input.text wire:model="email" id="email" name="email" type="email" class="mt-1 block w-full"
+                required autocomplete="email" field="email" />
             <x-input.error class="mt-2" field="email" />
 
-            @if (auth()->user() instanceof MustVerifyEmail && ! auth()->user()->hasVerifiedEmail())
+            @if (auth()->user() instanceof MustVerifyEmail &&
+                    !auth()->user()->hasVerifiedEmail())
                 <div>
-                    <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
+                    <p class="mt-2 text-sm text-gray-800 dark:text-gray-200">
                         {{ __('Your email address is unverified.') }}
 
-                        <button wire:click.prevent="sendVerification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                        <button wire:click.prevent="sendVerification"
+                            class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800">
                             {{ __('Click here to re-send the verification email.') }}
                         </button>
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                        <p class="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
                             {{ __('A new verification link has been sent to your email address.') }}
                         </p>
                     @endif

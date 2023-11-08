@@ -5,8 +5,7 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 use Livewire\Volt\Component;
 
-new class extends Component
-{
+new class extends Component {
     public string $current_password = '';
     public string $password = '';
     public string $password_confirmation = '';
@@ -24,9 +23,11 @@ new class extends Component
             throw $e;
         }
 
-        auth()->user()->update([
-            'password' => Hash::make($validated['password']),
-        ]);
+        auth()
+            ->user()
+            ->update([
+                'password' => Hash::make($validated['password']),
+            ]);
 
         $this->reset('current_password', 'password', 'password_confirmation');
 
@@ -48,19 +49,22 @@ new class extends Component
     <form wire:submit="updatePassword" class="mt-6 space-y-6">
         <div>
             <x-label.main for="current_password" :value="__('Current Password')" />
-            <x-input.text wire:model="current_password" id="current_password" name="current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" field="current_password"/>
+            <x-input.text wire:model="current_password" id="current_password" name="current_password" type="password"
+                class="mt-1 block w-full" autocomplete="current-password" field="current_password" />
             <x-input.error field="current_password" class="mt-2" />
         </div>
 
         <div>
             <x-label.main for="password" :value="__('New Password')" />
-            <x-input.text wire:model="password" id="password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" field="password"/>
+            <x-input.text wire:model="password" id="password" name="password" type="password" class="mt-1 block w-full"
+                autocomplete="new-password" field="password" />
             <x-input.error field="password" class="mt-2" />
         </div>
 
         <div>
             <x-label.main for="password_confirmation" :value="__('Confirm Password')" />
-            <x-input.text wire:model="password_confirmation" id="password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" field="password_confirmation"/>
+            <x-input.text wire:model="password_confirmation" id="password_confirmation" name="password_confirmation"
+                type="password" class="mt-1 block w-full" autocomplete="new-password" field="password_confirmation" />
             <x-input.error field="password_confirmation" class="mt-2" />
         </div>
 

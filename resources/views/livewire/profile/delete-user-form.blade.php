@@ -3,8 +3,7 @@
 use Livewire\Attributes\Rule;
 use Livewire\Volt\Component;
 
-new class extends Component
-{
+new class extends Component {
     #[Rule(['required', 'string', 'current_password'])]
     public string $password = '';
 
@@ -12,7 +11,7 @@ new class extends Component
     {
         $this->validate();
 
-        tap(auth()->user(), fn () => auth()->logout())->delete();
+        tap(auth()->user(), fn() => auth()->logout())->delete();
 
         session()->invalidate();
         session()->regenerateToken();
@@ -32,10 +31,8 @@ new class extends Component
         </p>
     </header>
 
-    <x-danger-button
-        x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Delete Account') }}</x-danger-button>
+    <x-danger-button x-data=""
+        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">{{ __('Delete Account') }}</x-danger-button>
 
     <x-modal.main name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable>
         <form wire:submit="deleteUser" class="p-6">
@@ -44,8 +41,12 @@ new class extends Component
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                     {{ __('Are you sure you want to delete your account?') }}
                 </h2>
-                <button type="button" x-on:click="$dispatch('close')" class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 dark:focus:ring-offset-secondary-800 transition ease-in-out duration-150">
-                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                <button type="button" x-on:click="$dispatch('close')"
+                    class="absolute right-0 top-0 mr-5 mt-5 flex h-8 w-8 items-center justify-center rounded-full text-gray-600 transition duration-150 ease-in-out hover:bg-gray-50 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 dark:focus:ring-offset-secondary-800">
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </button>
             </div>
 
@@ -56,15 +57,8 @@ new class extends Component
             <div class="mt-6">
                 <x-label.main for="password" value="{{ __('Password') }}" class="sr-only" />
 
-                <x-input.text
-                    wire:model="password"
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="mt-1 block w-3/4"
-                    placeholder="{{ __('Password') }}"
-                    field="password"
-                />
+                <x-input.text wire:model="password" id="password" name="password" type="password"
+                    class="mt-1 block w-3/4" placeholder="{{ __('Password') }}" field="password" />
 
                 <x-input.error field="password" class="mt-2" />
             </div>

@@ -6,8 +6,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.guest')] class extends Component
-{
+new #[Layout('layouts.guest')] class extends Component {
     #[Rule(['required', 'string'])]
     public string $password = '';
 
@@ -15,10 +14,14 @@ new #[Layout('layouts.guest')] class extends Component
     {
         $this->validate();
 
-        if (! auth()->guard('web')->validate([
-            'email' => auth()->user()->email,
-            'password' => $this->password,
-        ])) {
+        if (
+            !auth()
+                ->guard('web')
+                ->validate([
+                    'email' => auth()->user()->email,
+                    'password' => $this->password,
+                ])
+        ) {
             throw ValidationException::withMessages([
                 'password' => __('auth.password'),
             ]);
@@ -26,10 +29,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         session(['auth.password_confirmed_at' => time()]);
 
-        $this->redirect(
-            session('url.intended', RouteServiceProvider::HOME),
-            navigate: true
-        );
+        $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
     }
 }; ?>
 
@@ -43,17 +43,13 @@ new #[Layout('layouts.guest')] class extends Component
         <div>
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input wire:model="password"
-                          id="password"
-                          class="block mt-1 w-full"
-                          type="password"
-                          name="password"
-                          required autocomplete="current-password" />
+            <x-text-input wire:model="password" id="password" class="mt-1 block w-full" type="password" name="password"
+                required autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <div class="flex justify-end mt-4">
+        <div class="mt-4 flex justify-end">
             <x-primary-button>
                 {{ __('Confirm') }}
             </x-primary-button>

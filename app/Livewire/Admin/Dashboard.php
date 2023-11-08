@@ -12,8 +12,8 @@ class Dashboard extends Component
     public function render(): Application|Factory|View
     {
         return view('livewire.admin.dashboard')->layout('layouts.admin', [
-            'pageTitle' => 'Dashboard',
-            'pageDesc' => 'This is the dashboard page where we get all stats information.',
+            'title' => 'Dashboard',
+            'description' => 'This is the dashboard page where we get all stats information.',
         ]);
     }
 }
