@@ -23,7 +23,7 @@
         <!-- Page Body -->
         <div class="flex flex-col pt-2">
             <div
-                class="rounded-xl border border-secondary-300 bg-white shadow-sm dark:border-secondary-700 dark:bg-secondary-800">
+                class="border border-secondary-300 bg-white shadow-sm dark:border-secondary-700 dark:bg-secondary-800">
                 <!-- Users Table -->
                 <div>
                     @if ($users->isEmpty())
@@ -33,19 +33,19 @@
                                 <div
                                     class="flex h-16 w-16 items-center justify-center rounded-full bg-primary-50 text-primary-500 dark:bg-secondary-700">
                                     <svg wire:loading.remove.delay="1" wire:target="search" class="h-6 w-6"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         stroke-width="2" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12">
                                         </path>
                                     </svg>
                                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 animate-spin" wire:loading.delay="wire:loading.delay"
-                                        wire:target="search">
+                                         class="h-6 w-6 animate-spin" wire:loading.delay="wire:loading.delay"
+                                         wire:target="search">
                                         <path opacity="0.2" fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                                            fill="currentColor"></path>
+                                              d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                                              fill="currentColor"></path>
                                         <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z"
-                                            fill="currentColor"></path>
+                                              fill="currentColor"></path>
                                     </svg>
                                 </div>
 
@@ -68,18 +68,24 @@
                                 </x-table.heading>
 
                                 <x-table.heading sortable wire:click="sortBy('first_name')"
-                                    :direction="$sortColumn === 'first_name' ? $sortDirection : ''" class="w-full">Name</x-table.heading>
+                                                 :direction="$sortColumn === 'first_name' ? $sortDirection : ''"
+                                                 class="w-full">Name
+                                </x-table.heading>
 
                                 <x-table.heading>Roles</x-table.heading>
 
                                 <x-table.heading sortable wire:click="sortBy('status')"
-                                    :direction="$sortColumn === 'status' ? $sortDirection : ''">Status</x-table.heading>
+                                                 :direction="$sortColumn === 'status' ? $sortDirection : ''">Status
+                                </x-table.heading>
 
                                 <x-table.heading sortable wire:click="sortBy('type')"
-                                    :direction="$sortColumn === 'user_type' ? $sortDirection : ''">Type</x-table.heading>
+                                                 :direction="$sortColumn === 'user_type' ? $sortDirection : ''">Type
+                                </x-table.heading>
 
                                 <x-table.heading sortable wire:click="sortBy('updated_at')"
-                                    :direction="$sortColumn === 'updated_at' ? $sortDirection : ''">Modified At</x-table.heading>
+                                                 :direction="$sortColumn === 'updated_at' ? $sortDirection : ''">
+                                    Modified At
+                                </x-table.heading>
 
                                 <x-table.heading>Action</x-table.heading>
                             </x-slot>
@@ -90,17 +96,17 @@
                                     <x-table.row wire:key="row-{{ $user->id }}" class="text-base">
                                         <x-table.cell class="pr-0">
                                             <x-input.checkbox wire:model="selected"
-                                                value="{{ $user->id }}"></x-input.checkbox>
+                                                              value="{{ $user->id }}"></x-input.checkbox>
                                         </x-table.cell>
 
                                         <x-table.cell>
                                             <dl>
                                                 <dt class="sr-only">Display Name</dt>
-                                                <dd class="font-medium text-gray-900 dark:text-gray-200">
+                                                <dd class="font-medium text-secondary-900 dark:text-secondary-200">
                                                     {{ $user->first_name . ' ' . $user->last_name }}
                                                 </dd>
                                                 <dt class="sr-only">Email</dt>
-                                                <dd class="text-gray-500 dark:text-gray-400">
+                                                <dd class="text-secondary-500 dark:text-secondary-400">
                                                     {{ $user->email }}
                                                 </dd>
                                             </dl>
@@ -132,11 +138,11 @@
                                         <x-table.cell>
                                             <dl>
                                                 <dt class="sr-only">Updated At</dt>
-                                                <dd class="font-medium text-gray-700 dark:text-gray-200">
+                                                <dd class="font-medium text-secondary-700 dark:text-secondary-200">
                                                     {{ $user->updated_at->format('F j, Y g:i a') }}
                                                 </dd>
                                                 <dt class="sr-only">Human readable</dt>
-                                                <dd class="text-gray-500 dark:text-gray-400">
+                                                <dd class="text-secondary-500 dark:text-secondary-400">
                                                     {{ $user->updated_at->diffForHumans() }}
                                                 </dd>
                                             </dl>
@@ -146,10 +152,10 @@
                                             <div class="flex items-center space-x-2">
                                                 <x-icon.eye
                                                     wire:click="$emit('openModal', 'admin.user.view', {{ json_encode(['user' => $user->id], JSON_THROW_ON_ERROR) }})"
-                                                    class="cursor-pointer text-gray-400 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300" />
+                                                    class="cursor-pointer text-secondary-400 hover:text-secondary-500 dark:text-secondary-400 dark:hover:text-secondary-300"/>
                                                 <x-icon.pencil
                                                     wire:click="$emit('openModal', 'admin.user.edit', {{ json_encode(['user' => $user->id], JSON_THROW_ON_ERROR) }})"
-                                                    class="cursor-pointer text-primary-600 hover:text-primary-500" />
+                                                    class="cursor-pointer text-primary-600 hover:text-primary-500"/>
                                             </div>
                                         </x-table.cell>
                                     </x-table.row>
@@ -158,6 +164,12 @@
                         </x-table.main>
                     @endif
                 </div>
+                @if($users->isNotEmpty())
+                    <!-- Pagination -->
+                    <div class="px-4 py-2 border-t font-bold dark:border-secondary-700">
+                        {{ $users->onEachSide(0)->links('vendor.livewire.tailwind', ['arrPerPage' => $arrPerPage]) }}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

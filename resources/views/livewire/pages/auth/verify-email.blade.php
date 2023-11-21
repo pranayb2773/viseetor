@@ -1,9 +1,10 @@
 <?php
 
-use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Livewire\Attributes\Layout;
+use App\Providers\RouteServiceProvider;
 
-new #[Layout('layouts.guest')] class extends Component {
+new #[Layout("layouts.guest")] class extends Component {
     public function sendVerification(): void
     {
         if (
@@ -11,7 +12,10 @@ new #[Layout('layouts.guest')] class extends Component {
                 ->user()
                 ->hasVerifiedEmail()
         ) {
-            $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
+            $this->redirect(
+                session("url.intended", RouteServiceProvider::HOME),
+                navigate: true
+            );
 
             return;
         }
@@ -20,21 +24,22 @@ new #[Layout('layouts.guest')] class extends Component {
             ->user()
             ->sendEmailVerificationNotification();
 
-        session()->flash('status', 'verification-link-sent');
+        session()->flash("status", "verification-link-sent");
     }
 
     public function logout(): void
     {
         auth()
-            ->guard('web')
+            ->guard("web")
             ->logout();
 
         session()->invalidate();
         session()->regenerateToken();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect("/", navigate: true);
     }
-}; ?>
+};
+?>
 
 <div>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
@@ -48,12 +53,12 @@ new #[Layout('layouts.guest')] class extends Component {
     @endif
 
     <div class="mt-4 flex items-center justify-between">
-        <x-primary-button wire:click="sendVerification">
+        <x-button.primary wire:click="sendVerification">
             {{ __('Resend Verification Email') }}
-        </x-primary-button>
+        </x-button.primary>
 
         <button wire:click="logout" type="submit"
-            class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800">
+                class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800">
             {{ __('Log Out') }}
         </button>
     </div>
