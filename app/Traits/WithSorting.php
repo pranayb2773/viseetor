@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Builder;
+
 trait WithSorting
 {
     public string $sortColumn = '';
@@ -22,11 +24,15 @@ trait WithSorting
             return;
         } elseif ($this->sortColumn === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        }
-        else {
+        } else {
             $this->sortDirection = 'asc';
         }
 
         $this->sortColumn = $field;
+    }
+
+    public function applySorting(Builder $query, string $default = 'updated_at'): Builder
+    {
+        return empty($this->sortColumn) ? $query->orderByDesc($default) : $query->orderBy($this->sortColumn, $this->sortDirection);
     }
 }

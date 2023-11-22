@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'first_name' => 'Pranay',
             'last_name' => 'Baddam',
             'email' => 'pranay.teja.baddam@gmail.com',
-            'password' => 'Baddam@£6',
+            'password' => 'Baddam@#6',
             'type' => Type::INTERNAL->value,
             'status' => Status::ACTIVE->value,
         ]);

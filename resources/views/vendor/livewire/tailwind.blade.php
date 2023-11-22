@@ -1,5 +1,6 @@
 @if ($paginator->hasPages())
-    <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="flex items-center justify-between">
+    <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}"
+         class="flex items-center justify-between px-4 py-2 border-t font-bold dark:border-secondary-700">
         <div class="flex justify-between flex-1 lg:hidden">
             <div class="w-10">
                 @if ($paginator->onFirstPage())
@@ -35,7 +36,7 @@
             <div
                 class="flex items-center space-x-2 filament-tables-pagination-records-per-page-selector rtl:space-x-reverse">
                 <label>
-                    <select wire:model="perPage"
+                    <select wire:model.live="perPage"
                             class="h-8 text-sm pr-8 leading-none transition duration-75 border-secondary-300 rounded-lg shadow-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 dark:text-white dark:bg-secondary-700 dark:border-secondary-600 dark:focus:border-primary-500">
                         @foreach($arrPerPage as $value)
                             <option value="{{ $value }}">{{ $value }}</option>
@@ -100,7 +101,7 @@
                 <div
                     class="flex items-center space-x-2 filament-tables-pagination-records-per-page-selector rtl:space-x-reverse">
                     <label>
-                        <select wire:model="perPage"
+                        <select wire:model.live="perPage"
                                 class="h-8 text-sm pr-8 leading-none transition duration-75 border-secondary-300 rounded-lg shadow-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 dark:text-white dark:bg-secondary-700 dark:border-secondary-600 dark:focus:border-primary-500">
                             @foreach($arrPerPage as $value)
                                 <option value="{{ $value }}">{{ $value }}</option>
