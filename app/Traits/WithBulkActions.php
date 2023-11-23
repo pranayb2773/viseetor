@@ -20,7 +20,7 @@ trait WithBulkActions
     public function updatedSelected(): void
     {
         $this->selectAll = false;
-        $this->selectPage = false;
+        $this->selectPage = true;
     }
 
     public function updatedSelectPage($value): void
@@ -46,9 +46,9 @@ trait WithBulkActions
     #[Computed]
     public function selectedRows()
     {
-        return (clone $this->rows)->unless(
+        return (clone $this->rowsQuery)->unless(
             $this->selectAll,
-            fn($query) => $query->find($this->selected)
+            fn($query) => $query->whereKey($this->selected)
         );
     }
 }

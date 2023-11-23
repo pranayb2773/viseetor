@@ -7,9 +7,9 @@ use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
 
 new class extends Component {
-    public string $first_name = '';
-    public string $last_name = '';
-    public string $email = '';
+    public string $first_name = "";
+    public string $last_name = "";
+    public string $email = "";
 
     public function mount(): void
     {
@@ -23,26 +23,31 @@ new class extends Component {
         $user = auth()->user();
 
         $validated = $this->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email:filter', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            "first_name" => ["required", "string", "max:255"],
+            "last_name" => ["required", "string", "max:255"],
+            "email" => [
+                "required",
+                "email:filter",
+                "max:255",
+                Rule::unique(User::class)->ignore($user->id),
+            ],
         ]);
 
         $user->fill($validated);
 
-        if ($user->isDirty('email')) {
+        if ($user->isDirty("email")) {
             $user->email_verified_at = null;
         }
 
         $user->save();
 
         $this->dispatch(
-            'profile-updated',
+            "profile-updated",
             profile: [
-                'first_name' => $this->first_name,
-                'last_name' => $this->last_name,
-                'email' => $this->email,
-            ],
+                "first_name" => $this->first_name,
+                "last_name" => $this->last_name,
+                "email" => $this->email,
+            ]
         );
     }
 
@@ -51,7 +56,7 @@ new class extends Component {
         $user = auth()->user();
 
         if ($user->hasVerifiedEmail()) {
-            $path = session('url.intended', RouteServiceProvider::HOME);
+            $path = session("url.intended", RouteServiceProvider::HOME);
 
             $this->redirect($path);
 
@@ -60,9 +65,10 @@ new class extends Component {
 
         $user->sendEmailVerificationNotification();
 
-        session()->flash('status', 'verification-link-sent');
+        session()->flash("status", "verification-link-sent");
     }
-}; ?>
+};
+?>
 
 <section>
     <header>

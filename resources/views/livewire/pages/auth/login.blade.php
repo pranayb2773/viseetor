@@ -10,19 +10,19 @@ use Livewire\Attributes\Rule;
 use Livewire\Volt\Component;
 
 new #[
-    Layout('layouts.guest', [
-        'title' => 'Login',
-        'header' => 'Sign into your account',
-    ]),
+    Layout("layouts.guest", [
+        "title" => "Login",
+        "header" => "Sign into your account",
+    ])
 ]
 class extends Component {
-    #[Rule(['required', 'string', 'email'])]
-    public string $email = '';
+    #[Rule(["required", "string", "email"])]
+    public string $email = "";
 
-    #[Rule(['required', 'string'])]
-    public string $password = '';
+    #[Rule(["required", "string"])]
+    public string $password = "";
 
-    #[Rule(['boolean'])]
+    #[Rule(["boolean"])]
     public bool $remember = false;
 
     public function login(): void
@@ -31,11 +31,15 @@ class extends Component {
 
         $this->ensureIsNotRateLimited();
 
-        if (!auth()->attempt($this->only(['email', 'password'], $this->remember))) {
+        if (
+            !auth()->attempt(
+                $this->only(["email", "password"], $this->remember)
+            )
+        ) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                "email" => trans("auth.failed"),
             ]);
         }
 
@@ -43,7 +47,10 @@ class extends Component {
 
         session()->regenerate();
 
-        $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
+        $this->redirect(
+            session("url.intended", RouteServiceProvider::HOME),
+            navigate: true
+        );
     }
 
     protected function ensureIsNotRateLimited(): void
@@ -57,18 +64,21 @@ class extends Component {
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
+            "email" => trans("auth.throttle", [
+                "seconds" => $seconds,
+                "minutes" => ceil($seconds / 60),
             ]),
         ]);
     }
 
     protected function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->email) . '|' . request()->ip());
+        return Str::transliterate(
+            Str::lower($this->email) . "|" . request()->ip()
+        );
     }
-}; ?>
+};
+?>
 
 <div>
     <!-- Session Status -->

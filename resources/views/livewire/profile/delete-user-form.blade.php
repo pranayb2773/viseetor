@@ -4,8 +4,8 @@ use Livewire\Attributes\Rule;
 use Livewire\Volt\Component;
 
 new class extends Component {
-    #[Rule(['required', 'string', 'current_password'])]
-    public string $password = '';
+    #[Rule(["required", "string", "current_password"])]
+    public string $password = "";
 
     public function deleteUser(): void
     {
@@ -16,9 +16,10 @@ new class extends Component {
         session()->invalidate();
         session()->regenerateToken();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect("/", navigate: true);
     }
-}; ?>
+};
+?>
 
 <section class="space-y-6">
     <header>

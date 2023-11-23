@@ -6,9 +6,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.guest')] class extends Component {
-    #[Rule(['required', 'string'])]
-    public string $password = '';
+new #[Layout("layouts.guest")] class extends Component {
+    #[Rule(["required", "string"])]
+    public string $password = "";
 
     public function confirmPassword(): void
     {
@@ -16,22 +16,26 @@ new #[Layout('layouts.guest')] class extends Component {
 
         if (
             !auth()
-                ->guard('web')
+                ->guard("web")
                 ->validate([
-                    'email' => auth()->user()->email,
-                    'password' => $this->password,
+                    "email" => auth()->user()->email,
+                    "password" => $this->password,
                 ])
         ) {
             throw ValidationException::withMessages([
-                'password' => __('auth.password'),
+                "password" => __("auth.password"),
             ]);
         }
 
-        session(['auth.password_confirmed_at' => time()]);
+        session(["auth.password_confirmed_at" => time()]);
 
-        $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
+        $this->redirect(
+            session("url.intended", RouteServiceProvider::HOME),
+            navigate: true
+        );
     }
-}; ?>
+};
+?>
 
 <div>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">

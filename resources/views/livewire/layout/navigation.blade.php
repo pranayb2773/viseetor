@@ -6,15 +6,16 @@ new class extends Component {
     public function logout(): void
     {
         auth()
-            ->guard('web')
+            ->guard("web")
             ->logout();
 
         session()->invalidate();
         session()->regenerateToken();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect("/", navigate: true);
     }
-}; ?>
+};
+?>
 
 <nav x-data="{ open: false }" class="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
     <!-- Primary Navigation Menu -->

@@ -6,15 +6,16 @@ new class extends Component {
     public function logout(): void
     {
         auth()
-            ->guard('web')
+            ->guard("web")
             ->logout();
 
         session()->invalidate();
         session()->regenerateToken();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect("/", navigate: true);
     }
-}; ?>
+};
+?>
 
 <div>
     <div x-show="open" class="relative z-50 lg:hidden"

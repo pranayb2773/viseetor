@@ -20,6 +20,7 @@ use Livewire\Component;
 /**
  * @property Collection<User> $rows
  * @property Builder $rowsQuery
+ * @property Builder $selectedRows
  */
 class Index extends Component
 {
@@ -29,6 +30,7 @@ class Index extends Component
 
     public string $search = '';
     public string $updatedAt = '';
+    public string $status = '';
 
     public function mount(): void
     {
@@ -48,7 +50,7 @@ class Index extends Component
         $query = User::with(['roles'])
             ->when($this->search, fn(Builder $query, $search) => $query->whereLike(['first_name', 'last_name'], $search))
             ->when($this->updatedAt, fn(Builder $query, $updatedAt) => $query->whereLike('updated_at', Carbon::parse($updatedAt)->format('Y-m-d')))
-            ->when($this->sortColumn, fn(Builder $query, $sortColumn) => $query->orderBy($sortColumn, $this->sortDirection), fn(Builder $query) => $query->orderByDesc('updated_at'));
+            ->when($this->status, fn(Builder $query, $status) => $query->whereLike('status', $status));
 
         return $this->applySorting($query);
     }
@@ -62,8 +64,14 @@ class Index extends Component
     public function deleteUsers(): void
     {
         $this->selectedRows->delete();
+        $this->dispatch('close-modal', 'confirm-user-deletion');
+        $this->reset(['selected', 'selectAll', 'selectPage']);
+        $this->resetPage();
+    }
 
-        $this->reset();
+    public function resetFilters(): void
+    {
+        $this->reset(['updatedAt']);
         $this->resetPage();
     }
 

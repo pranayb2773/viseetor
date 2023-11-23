@@ -20,13 +20,10 @@
 <div wire:ignore x-data="{
       datePickerOpen: false,
       datePickerValue: @entangle($attributes->wire('model')),
-      datePickerFormat: 'MMMM D, YYYY hh:mm A',
+      datePickerFormat: 'MMMM D, YYYY',
       datePickerMonth: '',
       datePickerYear: '',
       datePickerDay: '',
-      datePickerHour: '',
-      datePickerMinute: '',
-      datePickerSecond: '',
       datePickerDaysInMonth: [],
       datePickerBlankDaysInMonth: [],
       datePickerMonthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -45,43 +42,22 @@
       datePickerYearClicked() {
         this.datePickerCalculateDays();
       },
-      datePickerHourClicked() {
-        this.setDateTime();
-      },
-      datePickerMinuteClicked() {
-        this.setDateTime();
-      },
-      setDateTime() {
-        let hour = +this.datePickerHour;
-
-        if (!Number.isInteger(hour)) {
-            this.datePickerHour = 0
-        } else if (hour > 23) {
-            this.datePickerHour = 0
-        } else if (hour < 0) {
-            this.datePickerHour = 23
-        } else {
-            this.datePickerHour = hour
+      datePickerPreviousMonth(){
+        if (this.datePickerMonth == 0) {
+            this.datePickerYear--;
+            this.datePickerMonth = 12;
         }
-
-        let minute = +this.datePickerMinute;
-
-        if (!Number.isInteger(minute)) {
-            this.datePickerMinute = 0
-        } else if (minute > 59) {
-            this.datePickerMinute = 0
-            this.datePickerHour++;
-        } else if (minute < 0) {
-            this.datePickerMinute = 59
-            this.datePickerHour--
+        this.datePickerMonth--;
+        this.datePickerCalculateDays();
+      },
+      datePickerNextMonth(){
+        if (this.datePickerMonth == 11) {
+            this.datePickerMonth = 0;
+            this.datePickerYear++;
         } else {
-            this.datePickerMinute = minute
+            this.datePickerMonth++;
         }
-
-        let selectedDateTime = new Date(this.datePickerYear, this.datePickerMonth, this.datePickerDay, this.datePickerHour, this.datePickerMinute);
-        this.datePickerValue = dayjs(selectedDateTime).format(this.datePickerFormat);
-
-        this.$watch('datePickerValue', () => this.datePickerValue);
+        this.datePickerCalculateDays();
       },
       datePickerIsSelectedDate(day) {
         const d = new Date(this.datePickerYear, this.datePickerMonth, day);
@@ -140,9 +116,6 @@
         datePickerMonth = currentDate.month();
         datePickerYear = currentDate.year();
         datePickerDay = currentDate.date();
-        datePickerHour = currentDate.hour();
-        datePickerMinute = currentDate.minute();
-        datePickerSecond = currentDate.second();
 
         datePickerCalculateDays();
     " x-cloak>
@@ -173,6 +146,7 @@
                 <select
                     x-model="datePickerMonth" @change="datePickerMonthClicked"
                     class="text-lg font-bold text-gray-800 dark:text-gray-200 dark:bg-gray-700 border-0 cursor-pointer grow outline-none px-1 py-0 focus:ring-0"
+                    aria-label="month" tabindex="-1"
                 >
                     <template x-for="(month, monthIndex) in datePickerMonthNames" :key="monthIndex">
                         <option
@@ -186,6 +160,7 @@
                     x-model="datePickerYear" @change="datePickerYearClicked"
                     min="1000" max="100000"
                     class="w-20 p-0 text-lg font-bold text-gray-800 dark:text-gray-200 dark:bg-gray-700 text-end border-0 outline-none focus:ring-0"
+                    aria-label="year" tabindex="-1"
                 >
             </div>
             <div class="grid grid-cols-7 mb-3">
@@ -214,30 +189,13 @@
                     </div>
                 </template>
             </div>
-            <div class="flex items-center justify-center mb-3">
-                <div
-                    class="flex items-center justify-center w-full bg-primary-50 dark:bg-gray-800 rounded-lg px-3 py-2 space-x-1">
-                    <input
-                        type="number" inputmode="numeric"
-                        x-model="datePickerHour" @change="datePickerHourClicked"
-                        min="0" max="23" maxlength="2"
-                        class="w-full flex-1 p-0 text-lg font-medium text-gray-800 dark:text-gray-200 bg-primary-50 dark:bg-gray-800 text-center border-0 outline-none focus:ring-0"
-                    >
-                    <span class="flex-none font-bold dark:text-gray-200">:</span>
-                    <input
-                        type="number" inputmode="numeric"
-                        x-model="datePickerMinute" @change="datePickerMinuteClicked"
-                        min="0" max="59" maxlength="2" step="5"
-                        class="w-full flex-1 p-0 text-lg font-medium text-gray-800 dark:text-gray-200 bg-primary-50 dark:bg-gray-800 text-center border-0 outline-none focus:ring-0"
-                    >
-                </div>
-            </div>
             <div class="flex items-center justify-between px-1">
                 <div>
                     <button
                         type="button"
                         @click="datePickerClearClicked()"
                         class="inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-sm text-danger-600 hover:text-danger-500 dark:text-danger-500 dark:hover:text-danger-400"
+                        aria-label="clear date" tabindex="-1"
                     >Clear
                     </button>
                 </div>
@@ -246,6 +204,7 @@
                         type="button"
                         @click="datePickerTodayClicked()"
                         class="inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-sm text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400"
+                        aria-label="today" tabindex="-1"
                     >Today
                     </button>
                 </div>

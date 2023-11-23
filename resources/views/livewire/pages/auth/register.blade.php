@@ -11,34 +11,45 @@ use App\Enums\User\Type;
 use App\Enums\User\Status;
 
 new #[
-    Layout('layouts.guest', [
-        'title' => 'Register',
-        'header' => 'Create your account',
-    ]),
+    Layout("layouts.guest", [
+        "title" => "Register",
+        "header" => "Create your account",
+    ])
 ]
 class extends Component {
-    public string $first_name = '';
-    public string $last_name = '';
-    public string $email = '';
-    public string $password = '';
-    public string $password_confirmation = '';
+    public string $first_name = "";
+    public string $last_name = "";
+    public string $email = "";
+    public string $password = "";
+    public string $password_confirmation = "";
 
     public function register(): void
     {
         $validated = $this->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            "first_name" => ["required", "string", "max:255"],
+            "last_name" => ["required", "string", "max:255"],
+            "email" => [
+                "required",
+                "string",
+                "email",
+                "max:255",
+                "unique:" . User::class,
+            ],
+            "password" => [
+                "required",
+                "string",
+                "confirmed",
+                Rules\Password::defaults(),
+            ],
         ]);
 
         $user = User::create([
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
-            'email' => $validated['email'],
-            'password' => $validated['password'],
-            'type' => Type::EXTERNAL,
-            'status' => Status::ACTIVE,
+            "first_name" => $validated["first_name"],
+            "last_name" => $validated["last_name"],
+            "email" => $validated["email"],
+            "password" => $validated["password"],
+            "type" => Type::EXTERNAL,
+            "status" => Status::ACTIVE,
         ]);
 
         event(new Registered($user));
@@ -47,7 +58,8 @@ class extends Component {
 
         $this->redirect(RouteServiceProvider::HOME, navigate: true);
     }
-}; ?>
+};
+?>
 
 <div>
     <form wire:submit="register">
