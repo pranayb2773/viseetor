@@ -1,5 +1,8 @@
 @import "./colors.css";
+@import "choices.js/public/assets/styles/choices.min.css";
+@import "./choice.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+

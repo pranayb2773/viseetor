@@ -80,7 +80,7 @@
                             />
                         </div>
                         <div wire:ignore>
-                            <x-dropdown.main align="right" width="w-64" is-filter="true">
+                            <x-dropdown.main align="right" width="w-72" is-filter="true">
                                 <x-slot:trigger>
                                     <button title="Open actions" type="button"
                                             class="filament-icon-button flex items-center justify-center rounded-full relative outline-none hover:bg-gray-500/5 disabled:opacity-70 disabled:cursor-not-allowed disabled:pointer-events-none text-primary-600 focus:bg-primary-500/10 dark:hover:bg-gray-300/5 w-10 h-10"
@@ -119,15 +119,34 @@
                                                          placeholder="MM/DD/YYYY"></x-date.main>
                                         </div>
                                         <div class="w-full px-2 py-2 text-sm text-secondary-700" role="menuitem">
-                                            <x-label.main for="filter-updated_at">Status
+                                            <x-label.main for="filter-status">Status
                                             </x-label.main>
-                                            <select wire:model.live="status"
+                                            <select wire:model.live="status" id="filter-status"
                                                     class="w-full mt-1 text-sm rounded-md shadow-sm dark:bg-secondary-900 dark:text-secondary-300 border-secondary-300 dark:border-secondary-700 focus:border-primary-500 dark:focus:border-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600">
                                                 <option value="">Select user status</option>
                                                 @foreach(\App\Enums\User\Status::cases() as $status)
                                                     <option value="{{ $status->value }}">{{ $status->label() }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="w-full px-2 py-2 text-sm text-secondary-700" role="menuitem">
+                                            <x-label.main for="filter-type">Type
+                                            </x-label.main>
+                                            <select wire:model.live="type" id="filter-type"
+                                                    class="w-full mt-1 text-sm rounded-md shadow-sm dark:bg-secondary-900 dark:text-secondary-300 border-secondary-300 dark:border-secondary-700 focus:border-primary-500 dark:focus:border-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600">
+                                                <option value="">Select user type</option>
+                                                @foreach(\App\Enums\User\Type::cases() as $type)
+                                                    <option value="{{ $type->value }}">{{ $type->label() }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="w-full px-2 py-2 text-sm text-secondary-700" role="menuitem">
+                                            <x-label.main for="filter-selectedRoles">Type
+                                            </x-label.main>
+                                            <x-choices.main wire:model.live="selectedRoles" id="filter-roles"
+                                                            class="w-full mt-1"
+                                                            :options="$roles->toArray()"
+                                                            multiple="true"></x-choices.main>
                                         </div>
                                     </div>
                                 </x-slot:content>

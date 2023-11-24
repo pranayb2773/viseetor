@@ -140,7 +140,7 @@
             x-show="datePickerOpen"
             x-transition
             @click.away="datePickerOpen = false"
-            class="absolute {{ $alignmentClasses }} max-w-lg p-4 mt-12 antialiased bg-white border rounded-lg shadow w-[17rem] border-gray-300 dark:bg-gray-700 dark:border-gray-600"
+            class="absolute {{ $alignmentClasses }} z-50 max-w-lg p-4 mt-12 antialiased bg-white border rounded-lg shadow w-[17rem] border-gray-300 dark:bg-gray-700 dark:border-gray-600"
         >
             <div class="flex items-center justify-between mb-3">
                 <select
