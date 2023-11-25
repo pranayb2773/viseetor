@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Livewire\Admin\User\Create;
 use App\Livewire\Admin\User\Index;
 use App\Livewire\Admin\Dashboard;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,8 @@ Route::view('profile', 'profile')
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/users', Index::class)->name('users');
+    Route::get('/users/create', Create::class)->name('users.create');
     Route::view('profile', 'profile')->name('auth.profile');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

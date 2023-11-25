@@ -9,14 +9,18 @@
         <header class="items-end justify-between space-y-2 sm:flex sm:space-x-4 sm:space-y-0 sm:rtl:space-x-reverse">
             <!-- Page Title -->
             <div>
-                <h1 class="text-2xl font-bold text-secondary-900 dark:text-secondary-100">{{ __('Users') }}</h1>
+                <h1 class="text-2xl sm:text-3xl tracking-tight font-bold text-secondary-900 dark:text-secondary-100">{{ __('Users') }}</h1>
             </div>
 
             <!-- Add Action -->
             <div class="flex shrink-0 flex-wrap items-center justify-start gap-4">
-                <x-button.primary class="text-sm normal-case">
+                <x-button.link-primary
+                    wire:navigate
+                    href="{{ route('admin.users.create') }}"
+                    class="text-sm normal-case"
+                >
                     {{ __('New User') }}
-                </x-button.primary>
+                </x-button.link-primary>
             </div>
         </header>
 
