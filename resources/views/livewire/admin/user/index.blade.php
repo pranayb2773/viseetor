@@ -145,12 +145,13 @@
                                             </select>
                                         </div>
                                         <div class="w-full px-2 py-2 text-sm text-secondary-700" role="menuitem">
-                                            <x-label.main for="filter-selectedRoles">Type
+                                            <x-label.main for="filter-selectedRoles">Roles
                                             </x-label.main>
-                                            <x-choices.main wire:model.live="selectedRoles" id="filter-roles"
-                                                            class="w-full mt-1"
-                                                            :options="$roles->toArray()"
-                                                            multiple="true"></x-choices.main>
+                                            <x-choices.main
+                                                wire:model.live="selectedRoles" id="filter-roles" class="w-full mt-1"
+                                                :options="$roles->toArray()"
+                                                multiple="{{ 'enable' }}"
+                                            ></x-choices.main>
                                         </div>
                                     </div>
                                 </x-slot:content>

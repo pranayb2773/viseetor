@@ -1,61 +1,33 @@
 @props([
     'options' => [],
-    'multiple' => false,
+    'multiple' => 'disable',
     'placeholder' => 'Select an option'
 ])
 
 <div
+    wire:ignore
     x-data="{
-        multiple: {{ $multiple }},
+        multiple: '{{ $multiple }}' === 'enable' ? true : false,
         value: @entangle($attributes->wire('model')),
         options: {{ json_encode($options) }},
+        placeholder: '{{ $placeholder }}',
         init() {
             this.$nextTick(() => {
-                let config = this.multiple ? {
+                let config = {
                     removeItems: true,
                     removeItemButton: true,
                     duplicateItemsAllowed: false,
                     allowHTML: false,
-                    placeholderValue:  '{{ $placeholder }}',
+                    placeholder: true,
                     searchEnabled: true,
-                    classNames: {
-                        containerOuter: 'choices',
-                        containerInner: 'choices__inner',
-                        input: 'choices__input',
-                        inputCloned: 'choices__input--cloned',
-                        list: 'choices__list',
-                        listItems: 'choices__list--multiple',
-                        listSingle: 'choices__list--single',
-                        listDropdown: 'choices__list--dropdown',
-                        item: 'choices__item',
-                        itemSelectable: 'choices__item--selectable',
-                        itemDisabled: 'choices__item--disabled',
-                        itemChoice: 'choices__item--choice',
-                        placeholder: 'choices__placeholder',
-                        group: 'choices__group',
-                        groupHeading: 'choices__heading',
-                        button: 'choices__button',
-                        activeState: 'is-active',
-                        focusState: 'is-focused',
-                        openState: 'is-open',
-                        disabledState: 'is-disabled',
-                        highlightedState: 'is-highlight',
-                        selectedState: 'is-selected',
-                        flippedState: 'is-flipped',
-                        loadingState: 'is-loading',
-                        noResults: 'has-no-results',
-                        noChoices: 'has-no-choices'
-                    }
-                } : {
-                    allowHTML: false,
+                    searchFields: ['label'],
+                    searchPlaceholderValue: 'Start typing to search...',
                 };
 
                 let choices = new Choices(this.$refs.select, config)
 
                 let refreshChoices = () => {
-                    console.log('selected', this.value);
                     let selection = this.multiple ? this.value : [this.value]
-                    console.log(selection);
 
                     choices.clearStore()
                     choices.setChoices(this.options.map(({ value, label }) => ({
@@ -63,12 +35,34 @@
                         label,
                         selected: selection.includes(value),
                     })))
+
+                    refreshPlaceholder();
                 }
 
+                refreshPlaceholder = () => {
+                    if (this.multiple) {
+                        this.$el.querySelector(
+                            '.choices__input--cloned',
+                        ).placeholder = this.placeholder ?? '';
+
+                        return;
+                    }
+
+                    choices._renderItems()
+
+                    if (![null, undefined, ''].includes(this.value)) {
+                        return
+                    }
+
+                    this.$el.querySelector(
+                        '.choices__list--single',
+                    ).innerHTML = `<div class='choices__placeholder choices__item'>${
+                        this.placeholder ?? ''
+                    }</div>`
+                },
+
                 this.$refs.select.addEventListener('change', () => {
-                    console.log('before', this.value);
                     this.value = choices.getValue(true)
-                    console.log('after', this.value);
                 })
 
                 this.$watch('value', () => refreshChoices())
@@ -77,11 +71,11 @@
             })
         }
     }"
-    class="max-w-sm w-full mt-1 text-sm rounded-md shadow-sm border dark:bg-secondary-900 dark:text-secondary-300 border-secondary-300 dark:border-secondary-700 focus-within:border-primary-500 dark:focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-500 dark:focus-within:ring-primary-600
+    class="w-full mt-1 text-sm rounded-md shadow-sm border dark:bg-secondary-900 dark:text-secondary-300 border-secondary-300 dark:border-secondary-700 focus-within:border-primary-500 dark:focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-500 dark:focus-within:ring-primary-600
     "
 >
     <select
-        :multiple="multiple"
         x-ref="select"
-    ></select>
+        {{ $multiple === 'enable' ? 'multiple' : '' }}
+        {{ $attributes->whereDoesntStartWith('wire:model') }}></select>
 </div>
