@@ -38,7 +38,12 @@ class Create extends Component
         }
     }
 
-    public function cancel()
+    public function updated(string $property): void
+    {
+        $this->validateOnly($property);
+    }
+
+    public function cancel(): void
     {
         // Dispatch event
         session()->flash('notify', [
@@ -46,7 +51,7 @@ class Create extends Component
             'content' => 'User Created Successfully.'
         ]);
 
-        redirect(route('admin.auth.profile'));
+        $this->redirectRoute('admin.users.create');
     }
 
     public function create(): void
@@ -92,7 +97,7 @@ class Create extends Component
         $this->reset();
 
         // Dispatch event
-        $this->dispatch('notify', [
+        session()->flash('notify', [
             'type' => 'success',
             'content' => 'User Created Successfully.'
         ]);

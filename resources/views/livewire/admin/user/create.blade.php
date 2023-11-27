@@ -26,23 +26,23 @@
                                         <x-label.main for="firstName"
                                                       :required="true"> {{ __('First Name') }}</x-label.main>
                                         <x-input.text wire:model.blur="firstName" id="firstName"
-                                                      class="w-full mt-1"></x-input.text>
+                                                      class="w-full mt-1" field="firstName"></x-input.text>
                                     </div>
                                     <div>
                                         <x-label.main for="lastName"
                                                       :required="true"> {{ __('Last Name') }}</x-label.main>
                                         <x-input.text wire:model.blur="lastName" id="lastName"
-                                                      class="w-full mt-1"></x-input.text>
+                                                      class="w-full mt-1" field="lastName"></x-input.text>
                                     </div>
                                     <div>
                                         <x-label.main for="email" :required="true"> {{ __('Email') }}</x-label.main>
                                         <x-input.text wire:model.blur="email" type="email" id="email"
-                                                      class="w-full mt-1"></x-input.text>
+                                                      class="w-full mt-1" field="email"></x-input.text>
                                     </div>
                                     <div>
                                         <x-label.main for="type" :required="true"> {{ __('Type') }}</x-label.main>
-                                        <x-choices.main wire:model.blur="type" id="type" multiple="{{ 'disable' }}"
-                                                        :options="$typeOptions" class="!appearance-none">
+                                        <x-choices.main wire:model.live="type" id="type" multiple="{{ 'disable' }}"
+                                                        :options="$typeOptions" class="!appearance-none" field="type">
                                         </x-choices.main>
                                     </div>
                                 </div>

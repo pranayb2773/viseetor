@@ -46,13 +46,13 @@
 <x-notification.main></x-notification.main>
 
 @if(session()->has('notify'))
-    <script>
-        window.onload = function () {
-            window.dispatchEvent(new CustomEvent('notify', {
-                detail: @json([session('notify')])
-            }));
+    <div x-data="{
+        init () {
+            this.$nextTick(() => {
+                this.$dispatch('notify', {{ json_encode([session('notify')]) }});
+            })
         }
-    </script>
+    }"></div>
 @endif
 
 @livewire('wire-elements-modal')

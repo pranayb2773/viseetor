@@ -10,3 +10,7 @@
             ? 'border-danger-400 dark:border-danger-700 focus:border-danger-500 dark:focus:border-danger-600 focus:ring-danger-500 dark:focus:ring-danger-600'
             : 'border-secondary-300 dark:border-secondary-700 focus:border-primary-500 dark:focus:border-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600'),
 ]) !!} />
+
+@error($field)
+    <span class="text-xs text-danger-600">{{ $message }}</span>
+@enderror

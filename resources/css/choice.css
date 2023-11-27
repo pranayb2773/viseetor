@@ -349,7 +349,7 @@
     vertical-align: baseline;
     background-color: #f9f9f9;
     font-size: 14px;
-    margin-bottom: 5px;
+    margin-bottom: 0;
     border: 0;
     border-radius: 0;
     max-width: 100%;
@@ -407,7 +407,7 @@ select:not(.choices) {
 }
 
 .choices__inner {
-    @apply bg-no-repeat py-1.5 pe-8 ps-3 outline-none sm:text-sm sm:leading-6 bg-transparent border-none;
+    @apply bg-no-repeat py-1.5 pe-8 ps-3 !pb-[0.40rem] outline-none sm:text-sm sm:leading-6 bg-transparent border-none;
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
     background-position: right 0.5rem center;
     background-size: 1.5em 1.5em;
@@ -418,7 +418,7 @@ select:not(.choices) {
 }
 
 .choices__list--single {
-    @apply inline-block pt-0.5;
+    @apply inline-block;
 }
 
 .choices__list--single .choices__item {
