@@ -41,13 +41,9 @@
                                     </div>
                                     <div>
                                         <x-label.main for="type" :required="true"> {{ __('Type') }}</x-label.main>
-                                        <select wire:model.blur="type" id="type"
-                                                class="w-full mt-1 text-sm rounded-md shadow-sm dark:bg-secondary-900 dark:text-secondary-300 border-secondary-300 dark:border-secondary-700 focus:border-primary-500 dark:focus:border-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600">
-                                            <option value="">Select user type</option>
-                                            @foreach(\App\Enums\User\Type::cases() as $type)
-                                                <option value="{{ $type->value }}">{{ $type->label() }}</option>
-                                            @endforeach
-                                        </select>
+                                        <x-choices.main wire:model.blur="type" id="type" multiple="{{ 'disable' }}"
+                                                        :options="$typeOptions" class="!appearance-none">
+                                        </x-choices.main>
                                     </div>
                                 </div>
                             </div>

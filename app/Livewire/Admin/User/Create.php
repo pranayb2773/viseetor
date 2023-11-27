@@ -18,6 +18,7 @@ class Create extends Component
     public string $lastName = '';
     public string $email = '';
     public Type $type;
+    public array $typeOptions = [];
 
     protected function rules(): array
     {
@@ -29,15 +30,31 @@ class Create extends Component
         ];
     }
 
-    public function cancel(): void
+    public function mount(): void
     {
-        $this->redirect(route('admin.users'));
+        // Use it for dropdown in create user page
+        foreach (Type::cases() as $typeOption) {
+            $this->typeOptions[] = ['value' => $typeOption->value, 'label' => $typeOption->label()];
+        }
+    }
+
+    public function cancel()
+    {
+        // Dispatch event
+        session()->flash('notify', [
+            'type' => 'success',
+            'content' => 'User Created Successfully.'
+        ]);
+
+        redirect(route('admin.auth.profile'));
     }
 
     public function create(): void
     {
+        // Validate
         $this->validate();
 
+        // Create user
         User::create([
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
@@ -45,6 +62,14 @@ class Create extends Component
             'type' => $this->type,
             'status' => Status::PENDING,
             'password' => Str::random(8)
+        ]);
+
+        $this->reset();
+
+        // Dispatch event
+        session()->flash('notify', [
+            'type' => 'success',
+            'content' => 'User Created Successfully.'
         ]);
 
         $this->redirect(route('admin.users'));
@@ -63,6 +88,16 @@ class Create extends Component
             'password' => Str::random(8)
         ]);
 
+        // Reset properties
+        $this->reset();
+
+        // Dispatch event
+        $this->dispatch('notify', [
+            'type' => 'success',
+            'content' => 'User Created Successfully.'
+        ]);
+
+        // Redirect Users listing page
         $this->redirect(route('admin.users.create'));
     }
 

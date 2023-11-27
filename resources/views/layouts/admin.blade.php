@@ -42,6 +42,19 @@
         </div>
     </div>
 </div>
-</body>
+
+<x-notification.main></x-notification.main>
+
+@if(session()->has('notify'))
+    <script>
+        window.onload = function () {
+            window.dispatchEvent(new CustomEvent('notify', {
+                detail: @json([session('notify')])
+            }));
+        }
+    </script>
+@endif
+
 @livewire('wire-elements-modal')
+</body>
 </html>
