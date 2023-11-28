@@ -67,7 +67,7 @@ class Index extends Component
     public function rowsQuery(): Builder
     {
         $query = User::with(['roles'])
-            ->when($this->search, fn(Builder $query, $search) => $query->whereLike(['first_name', 'last_name'], $search))
+            ->when($this->search, fn(Builder $query, $search) => $query->whereLike(['first_name', 'last_name', 'roles.name'], $search))
             ->when($this->updatedAt, fn(Builder $query, $updatedAt) => $query->whereLike('updated_at', Carbon::parse($updatedAt)->format('Y-m-d')))
             ->when($this->status, fn(Builder $query, $status) => $query->where('status', $status))
             ->when($this->type, fn(Builder $query, $type) => $query->where('type', $type))

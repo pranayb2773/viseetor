@@ -153,8 +153,8 @@ new class extends Component {
                                 <ul role="list" class="-mx-2 mt-2 space-y-1">
                                     <li>
                                         <a href="{{ route('admin.users') }}" wire:navigate
-                                            class="{{ request()->routeIs('admin.users') ? 'bg-primary-500 text-secondary-100' : 'text-secondary-700 dark:text-secondary-300 hover:text-primary-500 hover:bg-secondary-50 dark:hover:text-primary-500 dark:hover:bg-secondary-700' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6">
-                                            <svg class="{{ request()->routeIs('admin.users') ? 'text-secondary-100' : 'text-secondary-400 group-hover:text-primary-500 dark:text-secondary-500' }} h-6 w-6 shrink-0"
+                                            class="{{ request()->routeIs(['admin.users', 'admin.users.*']) ? 'bg-primary-500 text-secondary-100' : 'text-secondary-700 dark:text-secondary-300 hover:text-primary-500 hover:bg-secondary-50 dark:hover:text-primary-500 dark:hover:bg-secondary-700' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6">
+                                            <svg class="{{ request()->routeIs(['admin.users', 'admin.users.*']) ? 'text-secondary-100' : 'text-secondary-400 group-hover:text-primary-500 dark:text-secondary-500' }} h-6 w-6 shrink-0"
                                                 fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                                 stroke="currentColor" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -328,8 +328,8 @@ new class extends Component {
                         <ul role="list" class="-mx-2 mt-2 space-y-1">
                             <li>
                                 <a href="{{ route('admin.users') }}" wire:navigate
-                                    class="{{ request()->routeIs('admin.users') ? 'bg-primary-500 text-secondary-100' : 'text-secondary-700 dark:text-secondary-300 hover:text-primary-500 hover:bg-secondary-50 dark:hover:text-primary-500 dark:hover:bg-secondary-700' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6">
-                                    <svg class="{{ request()->routeIs('admin.users') ? 'text-secondary-100' : 'text-secondary-400 group-hover:text-primary-500 dark:text-secondary-500' }} h-6 w-6 shrink-0"
+                                    class="{{ request()->routeIs(['admin.users', 'admin.users.*']) ? 'bg-primary-500 text-secondary-100' : 'text-secondary-700 dark:text-secondary-300 hover:text-primary-500 hover:bg-secondary-50 dark:hover:text-primary-500 dark:hover:bg-secondary-700' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6">
+                                    <svg class="{{ request()->routeIs(['admin.users', 'admin.users.*']) ? 'text-secondary-100' : 'text-secondary-400 group-hover:text-primary-500 dark:text-secondary-500' }} h-6 w-6 shrink-0"
                                         fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                         aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round"

@@ -5,7 +5,7 @@
     'field' => '',
 ])
 <div
-    {!! $attributes->twMerge([
+    {!! $attributes->whereDoesntStartWith('wire:model')->twMerge([
         'class' =>
             'w-full mt-1 text-sm rounded-md shadow-sm dark:bg-secondary-900 dark:text-secondary-300 border ' .
             ($errors->has($field)

@@ -90,7 +90,6 @@ class extends Component {
             <x-label.main for="email" :value="__('Email')" />
             <x-input.text wire:model="email" id="email" class="mt-1 block w-full" type="email" name="email" required
                 autofocus autocomplete="username" field="email" />
-            <x-input.error field="email" class="mt-2" />
         </div>
 
         <!-- Password -->
@@ -99,8 +98,6 @@ class extends Component {
 
             <x-input.text wire:model="password" id="password" class="mt-1 block w-full" type="password" name="password"
                 required autocomplete="current-password" field="password" />
-
-            <x-input.error field="password" class="mt-2" />
         </div>
 
         <!-- Remember Me -->

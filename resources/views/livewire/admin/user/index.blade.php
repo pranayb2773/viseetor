@@ -1,5 +1,5 @@
 <div>
-    <div class="space-y-4 px-4 sm:px-6">
+    <div class="space-y-4 mx-auto h-full w-full px-4 md:px-6 lg:px-8 max-w-[87rem]">
         <!-- Bread crumbs -->
         <x-breadcrumbs.main>
             <x-breadcrumbs.link>{{ __('Users') }}</x-breadcrumbs.link>
@@ -340,9 +340,9 @@
                                                 <x-icon.eye
                                                     wire:click="$emit('openModal', 'admin.user.view', {{ json_encode(['user' => $user->id], JSON_THROW_ON_ERROR) }})"
                                                     class="cursor-pointer text-secondary-400 hover:text-secondary-500 dark:text-secondary-400 dark:hover:text-secondary-300"/>
-                                                <x-icon.pencil
-                                                    wire:click="$emit('openModal', 'admin.user.edit', {{ json_encode(['user' => $user->id], JSON_THROW_ON_ERROR) }})"
-                                                    class="cursor-pointer text-primary-600 hover:text-primary-500"/>
+                                                <a wire:navigate href="{{ route('admin.users.edit', [$user->id]) }}">
+                                                    <x-icon.pencil class="cursor-pointer text-primary-600 hover:text-primary-500"/>
+                                                </a>
                                             </div>
                                         </x-table.cell>
                                     </x-table.row>
