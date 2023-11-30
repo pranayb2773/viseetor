@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
@@ -75,7 +76,9 @@ class Edit extends Component
     #[Computed]
     public function getRoles(): Collection
     {
-        return Role::select(['id as value', 'name as label'])->orderBy('name')->get();
+        return Role::select(['id as value', 'name as label'])
+            ->when(!auth()->user()->isSuperAdmin(), fn(Builder $query) => $query->whereNot('name', 'Super Admin'))
+            ->orderBy('name')->get();
     }
 
     #[Computed]

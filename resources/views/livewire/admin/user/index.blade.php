@@ -338,7 +338,7 @@
                                         <x-table.cell>
                                             <div class="flex items-center space-x-2">
                                                 <x-icon.eye
-                                                    wire:click="$emit('openModal', 'admin.user.view', {{ json_encode(['user' => $user->id], JSON_THROW_ON_ERROR) }})"
+                                                    wire:click="$dispatch('openModal', { component: 'admin.user.show', arguments: { user: {{ $user->id }} }})"
                                                     class="cursor-pointer text-secondary-400 hover:text-secondary-500 dark:text-secondary-400 dark:hover:text-secondary-300"/>
                                                 <a wire:navigate href="{{ route('admin.users.edit', [$user->id]) }}">
                                                     <x-icon.pencil class="cursor-pointer text-primary-600 hover:text-primary-500"/>

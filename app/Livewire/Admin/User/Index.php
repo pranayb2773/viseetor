@@ -37,18 +37,6 @@ class Index extends Component
     public string $type = '';
     public array $selectedRoles = [];
 
-    public function mount(): void
-    {
-        $this->perPage = Session::get('perPage', $this->perPage);
-    }
-
-    public function updatedPerPage($value): void
-    {
-        Session::put('perPage', $value);
-        $this->reset(['selected', 'selectAll', 'selectPage']);
-        $this->resetPage();
-    }
-
     public function deleteUsers(): void
     {
         $this->selectedRows->delete();
