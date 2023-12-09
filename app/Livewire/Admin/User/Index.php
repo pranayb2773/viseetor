@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Admin\User;
 
+use App\Enums\User\Status;
+use App\Enums\User\Type;
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\WithBulkActions;
@@ -36,6 +38,20 @@ class Index extends Component
     public string $status = '';
     public string $type = '';
     public array $selectedRoles = [];
+
+    public array $typeOptions = [];
+    public array $statusOptions = [];
+
+    public function mount(): void
+    {
+        foreach (Type::cases() as $type) {
+            $this->typeOptions [] = ['value' => $type->value, 'label' => $type->label()];
+        }
+
+        foreach (Status::cases() as $status) {
+            $this->statusOptions [] = ['value' => $status->value, 'label' => $status->label()];
+        }
+    }
 
     public function deleteUsers(): void
     {

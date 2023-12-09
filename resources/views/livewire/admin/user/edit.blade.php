@@ -152,9 +152,9 @@
                     {{ __('Cancel') }}
                 </x-button.secondary>
 
-                <x-danger-button class="ml-3">
+                <x-button.danger class="ml-3">
                     {{ __('Delete') }}
-                </x-danger-button>
+                </x-button.danger>
             </div>
         </form>
     </x-modal.main>
