@@ -1,11 +1,10 @@
 @props([
     'options' => [],
-    'multiple' => 'disable',
     'placeholder' => 'Select an option',
     'field' => '',
 ])
 <div
-    {!! $attributes->whereDoesntStartWith('wire:model')->twMerge([
+    {!! $attributes->whereDoesntStartWith(['wire:model', 'multiple'])->twMerge([
         'class' =>
             'w-full mt-1 text-sm rounded-md shadow-sm dark:bg-secondary-900 dark:text-secondary-300 border ' .
             ($errors->has($field)
@@ -16,7 +15,7 @@
     <div
         wire:ignore
         x-data="{
-            multiple: '{{ $multiple }}' === 'enable' ? true : false,
+            multiple: $refs.select.multiple,
             value: @entangle($attributes->wire('model')),
             options: {{ json_encode($options) }},
             placeholder: '{{ $placeholder }}',
@@ -31,6 +30,7 @@
                         searchEnabled: true,
                         searchFields: ['label'],
                         searchPlaceholderValue: 'Start typing to search...',
+                        'itemSelectText': '',
                     };
 
                     let choices = new Choices(this.$refs.select, config)
@@ -48,7 +48,7 @@
                         refreshPlaceholder();
                     }
 
-                    refreshPlaceholder = () => {
+                    let refreshPlaceholder = () => {
                         if (this.multiple) {
                             this.$el.querySelector(
                                 '.choices__input--cloned',
@@ -68,7 +68,7 @@
                         ).innerHTML = `<div class='choices__placeholder choices__item'>${
                             this.placeholder ?? ''
                         }</div>`
-                    },
+                    }
 
                     this.$refs.select.addEventListener('change', () => {
                         this.value = choices.getValue(true)
@@ -84,7 +84,6 @@
     >
         <select
             x-ref="select"
-            {{ $multiple === 'enable' ? 'multiple' : '' }}
             {{ $attributes->whereDoesntStartWith('wire:model') }}></select>
     </div>
 </div>
