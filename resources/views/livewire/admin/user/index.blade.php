@@ -123,34 +123,28 @@
                                                          placeholder="MM/DD/YYYY"></x-date.main>
                                         </div>
                                         <div class="w-full px-2 py-2 text-sm text-secondary-700" role="menuitem">
-                                            <x-label.main for="filter-status">Status
+                                            <x-label.main for="filter-selectedRoles">Roles
                                             </x-label.main>
-                                            <select wire:model.live="status" id="filter-status"
-                                                    class="w-full mt-1 text-sm rounded-md shadow-sm dark:bg-secondary-900 dark:text-secondary-300 border-secondary-300 dark:border-secondary-700 focus:border-primary-500 dark:focus:border-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600">
-                                                <option value="">Select user status</option>
-                                                @foreach(\App\Enums\User\Status::cases() as $status)
-                                                    <option value="{{ $status->value }}">{{ $status->label() }}</option>
-                                                @endforeach
-                                            </select>
+                                            <x-choices.main
+                                                wire:model.live="selectedRoles" id="filter-selectedRoles" class="w-full mt-1"
+                                                :options="$roles->toArray()"
+                                                multiple="multiple"
+                                            ></x-choices.main>
                                         </div>
                                         <div class="w-full px-2 py-2 text-sm text-secondary-700" role="menuitem">
                                             <x-label.main for="filter-type">Type
                                             </x-label.main>
-                                            <select wire:model.live="type" id="filter-type"
-                                                    class="w-full mt-1 text-sm rounded-md shadow-sm dark:bg-secondary-900 dark:text-secondary-300 border-secondary-300 dark:border-secondary-700 focus:border-primary-500 dark:focus:border-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600">
-                                                <option value="">Select user type</option>
-                                                @foreach(\App\Enums\User\Type::cases() as $type)
-                                                    <option value="{{ $type->value }}">{{ $type->label() }}</option>
-                                                @endforeach
-                                            </select>
+                                            <x-choices.main
+                                                wire:model.live="type" id="filter-type" class="w-full mt-1"
+                                                :options="$typeOptions"
+                                            ></x-choices.main>
                                         </div>
                                         <div class="w-full px-2 py-2 text-sm text-secondary-700" role="menuitem">
-                                            <x-label.main for="filter-selectedRoles">Roles
+                                            <x-label.main for="filter-status">Status
                                             </x-label.main>
                                             <x-choices.main
-                                                wire:model.live="selectedRoles" id="filter-roles" class="w-full mt-1"
-                                                :options="$roles->toArray()"
-                                                multiple="{{ 'enable' }}"
+                                                wire:model.live="status" id="filter-status" class="w-full mt-1"
+                                                :options="$statusOptions"
                                             ></x-choices.main>
                                         </div>
                                     </div>

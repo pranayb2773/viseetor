@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="col-span-2 lg:col-span-1">
                                             <x-label.main for="type" :required="true"> {{ __('Type') }}</x-label.main>
-                                            <x-choices.main wire:model.live="type" id="type" multiple="{{ 'disable' }}"
+                                            <x-choices.main wire:model.live="type" id="type"
                                                             :options="$typeOptions" field="type">
                                             </x-choices.main>
                                         </div>
@@ -66,13 +66,13 @@
                                         <div class="grid gap-6 grid-cols-1 lg:grid-cols-2">
                                             <div>
                                                 <x-label.main for="roles" :required="true"> {{ __('Roles') }}</x-label.main>
-                                                <x-choices.main wire:model.live="roles" id="roles" multiple="{{ 'enable' }}"
+                                                <x-choices.main wire:model.live="roles" id="roles" multiple="multiple"
                                                                 :options="$rolesOptions" field="roles">
                                                 </x-choices.main>
                                             </div>
                                             <div>
                                                 <x-label.main for="permissions"> {{ __('Permissions') }}</x-label.main>
-                                                <x-choices.main wire:model.live="permissions" id="permissions" multiple="{{ 'enable' }}"
+                                                <x-choices.main wire:model.live="permissions" id="permissions" multiple="multiple"
                                                                 :options="$permissionsOptions" field="permissions">
                                                 </x-choices.main>
                                             </div>

@@ -35,8 +35,8 @@ class Index extends Component
 
     public string $search = '';
     public string $updatedAt = '';
-    public string $status = '';
-    public string $type = '';
+    public ?string $status = '';
+    public ?string $type = '';
     public array $selectedRoles = [];
 
     public array $typeOptions = [];

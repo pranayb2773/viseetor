@@ -528,7 +528,7 @@ select:not(.choices) {
 /* !important is used to override default Tailwind input styling */
 
 .choices__input {
-    @apply border-none !bg-transparent !p-0 !text-sm text-secondary-900 transition duration-75 placeholder:text-secondary-400 focus-visible:!ring-0 disabled:text-secondary-500 disabled:[-webkit-text-fill-color:theme(colors.secondary[500])] dark:text-white dark:placeholder:text-secondary-500 dark:disabled:text-secondary-400 dark:disabled:[-webkit-text-fill-color:theme(colors.secondary[400])] sm:!text-sm sm:leading-6;
+    @apply border-none !bg-transparent !p-0 !text-sm text-secondary-900 transition duration-75 placeholder:!text-secondary-400/50 focus-visible:!ring-0 disabled:text-secondary-500 disabled:[-webkit-text-fill-color:theme(colors.secondary[500])] dark:text-white dark:placeholder:text-secondary-500 dark:disabled:text-secondary-400 dark:disabled:[-webkit-text-fill-color:theme(colors.secondary[400])] sm:!text-sm sm:leading-6;
 }
 
 .choices__list--dropdown .choices__input {
